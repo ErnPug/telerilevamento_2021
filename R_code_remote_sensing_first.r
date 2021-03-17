@@ -14,3 +14,5 @@ color <- colorRampPalette(c("black","grey","light grey"))(100)
 
 plot(p224r63_2011,col=color)
 
+color <- colorRampPalette(c("blue","light blu","green","yellow","red"))(100)
+
