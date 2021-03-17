@@ -2,7 +2,7 @@
 
 # install.packages("raster")
 library(raster) # richiamo il pacchetto installato 
-setwd("C:/lab/") #imposto come working directory la cartella "lab" in C
+setwd("C:/lab/") # imposto come working directory la cartella "lab" in C
 
 p224r63_2011 <- brick("p224r63_2011_masked.grd") # birck importa tutte le bande dell'immagine
 p224r63_2011
