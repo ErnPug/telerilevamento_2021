@@ -92,5 +92,35 @@ par(mfrow=c(3,1))
 plotRGB(p224r63_2011,r=3,g=2,b=1,stretch="Lin") # primo caso
 plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="Lin") # infrarosso nel Green
 plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="hist") # stretch diverso
- 
 
+# Day 6
+# uso un nuovo file, un'immagine dello stesso luogo, ma del 1988
+p224r63_1988 <- brick("p224r63_1988_masked.grd")
+p224r63_1988
+
+# Bande Landsat
+# B1: blu
+# B2: verde
+# B3: rosso
+# B4: infrarosso vicino
+# B5: infrarosso medio
+# B6: infrarosso termico
+# B7: infrarosso medio
+
+plot(p224r63_1988) # plotto tutte le bande
+plotRGB(p224r63_1988,r=3,g=2,b=1,stretch="Lin")
+plotRGB(p224r63_1988,r=4,g=3,b=2,stretch="Lin") # controllo la vegetazione usando l'infrarosso
+
+# con un par inserisco entrambi i periosi in un'unica immagine 
+par(mfrow=c(2,1))
+plotRGB(p224r63_1988,r=4,g=3,b=2,stretch="Lin")
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch="Lin")
+
+# insetiamo in un par 2X2 anche le immmagini con lo stretch="hist"
+pdf("Multitemp.pdf") # salvo in pdf
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988,r=4,g=3,b=2,stretch="Lin")
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch="Lin")
+plotRGB(p224r63_1988,r=4,g=3,b=2,stretch="hist")
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch="hist")
+dev.off()
