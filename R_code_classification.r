@@ -18,3 +18,8 @@ plot(soc$map)
 # prova con 20 classi
 soc20 <- unsuperClass(so, nClass=20)
 plot(soc20$map)
+# carico una nuova immagine
+sun <- brick("Sun.png")
+# classifico la nuova immagine
+sunc <- unsuperClass(sun, nClass=3)
+plot(sunc$map)
