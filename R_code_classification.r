@@ -23,3 +23,14 @@ sun <- brick("Sun.png")
 # classifico la nuova immagine
 sunc <- unsuperClass(sun, nClass=3)
 plot(sunc$map)
+
+# utilizzo adesso immagini del Gran Canyon
+
+GC <- brick("dolansprings_oli_2013088_canyon_lrg.jpg")
+plotRGB(GC,1,2,3,stretch="lin")
+plotRGB(GC,1,2,3,stretch="hist")
+GCC2 <- unsuperClass(GC, nClass=2)
+plot(GCC2$map)
+# provo con 4 classi
+GCC4 <- unsuperClass(GC, nClass=4)
+plot(GCC4$map)
