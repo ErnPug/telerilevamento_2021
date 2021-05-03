@@ -8,3 +8,12 @@ plot(p224r63_2011) # plotto l'immagine
 plot(p224r63_2011$B1_sre,p224r63_2011$B2_sre,col="red",pch=19,cex=2)
 # pairs fa tutte le correlazioni che si possono fare
 pairs(p224r63_2011)
+# ricampioniamo usando meno pixel.
+p224r63_2011res <- aggregate(p224r63_2011,fact=10)
+# vedo le due immagini, originaria e ricampionata
+par(mfrow=c(2,1))
+plotRGB(p224r63_2011, r=4,g=3,b=2,stretch="lin")
+plotRGB(p224r63_2011res, r=4,g=3,b=2,stretch="lin")
+# faccio l'analisi PCA
+p224r63_2011res_pca <- rasterPCA(p224r63_2011res)
+
