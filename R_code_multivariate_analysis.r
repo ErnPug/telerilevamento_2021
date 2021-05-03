@@ -1,5 +1,6 @@
 # Analisi multivariata
 library(raster)
+library(RStoolbox)
 setwd("C:/lab/")
 # carico l'immagine
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
@@ -16,4 +17,11 @@ plotRGB(p224r63_2011, r=4,g=3,b=2,stretch="lin")
 plotRGB(p224r63_2011res, r=4,g=3,b=2,stretch="lin")
 # faccio l'analisi PCA
 p224r63_2011res_pca <- rasterPCA(p224r63_2011res)
+# controllo il risultato del rasterPCA, il modello in questo caso. Quanta varianza spiega ogni banda.
+summary(p224r63_2011res_pca$model)
+# plotto la map del risultato di rasterPCA
+dev.off() # così il par finisce
+plotRGB(p224r63_2011res_pca$map,r=1,g=2,b=3,stretch="lin")
+
+
 
