@@ -1,6 +1,7 @@
 # R_code_vegetation_indices.r
 
 library(raster)
+library(RStoolbox)
 setwd("C:/lab/")
 # carico le immagini della deforazione
 defor1 <- brick("defor1.jpg")
@@ -29,8 +30,14 @@ plot(difdvi, col=cld)
 # ndvi
 # (NIR-RED)/(NIR+RED)
 
-ndvi1 <- 
-
+ndvi1 <- (defor1$defor1.1 - defor1$defor1.2) / (defor1$defor1.1 + defor1$defor1.2)
+plot(ndvi1, col=cl)
+# calcoliamo l'ndvi2 per la seconda immagine
+ndvi2 <- (defor2$defor2.1 - defor2$defor2.2) / (defor2$defor2.1 + defor2$defor2.2)
+plot(ndvi2, col=cl)
+# uso la funzione "spectralIndices" del pacchetto RStoolbox
+vi <- spectralIndices(defor1,green=3,red=2,nir=1)
+plot(vi,col=cl)
 
 
 
