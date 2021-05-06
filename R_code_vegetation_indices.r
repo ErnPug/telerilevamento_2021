@@ -36,9 +36,14 @@ plot(ndvi1, col=cl)
 ndvi2 <- (defor2$defor2.1 - defor2$defor2.2) / (defor2$defor2.1 + defor2$defor2.2)
 plot(ndvi2, col=cl)
 # uso la funzione "spectralIndices" del pacchetto RStoolbox
-vi <- spectralIndices(defor1,green=3,red=2,nir=1)
-plot(vi,col=cl)
+vi1 <- spectralIndices(defor1,green=3,red=2,nir=1)
+plot(vi1,col=cl)
 
+vi2 <- spectralIndices(defor2,green=3,red=2,nir=1)
+plot(vi2,col=cl)
+# faccio la differenza tra NDVI
+difndvi <- ndvi1 - ndvi2
+plot(difndvi, col=cld)
 
 
 
