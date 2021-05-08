@@ -3,6 +3,7 @@
 library(raster)
 library(RStoolbox)
 library(rasterdiv)
+library(rasterVis)
 setwd("C:/lab/")
 # carico le immagini della deforazione
 defor1 <- brick("defor1.jpg")
@@ -51,7 +52,8 @@ plot(copNDVI)
 # riclassifichiamo l'immagine precedente, eliminando il contributo dell'acqua. 
 copNDVI <- reclassify(copNDVI, cbind(253:255,NA))
 plot(copNDVI)
-
+# funzione che ha bisogno del pacchetto rasterVis
+ 
 
 
 
