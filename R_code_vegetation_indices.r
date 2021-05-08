@@ -2,6 +2,7 @@
 
 library(raster)
 library(RStoolbox)
+library(rasterdiv)
 setwd("C:/lab/")
 # carico le immagini della deforazione
 defor1 <- brick("defor1.jpg")
@@ -44,6 +45,14 @@ plot(vi2,col=cl)
 # faccio la differenza tra NDVI
 difndvi <- ndvi1 - ndvi2
 plot(difndvi, col=cld)
+
+# worldwide NDVI
+plot(copNDVI)
+# riclassifichiamo l'immagine precedente, eliminando il contributo dell'acqua. 
+copNDVI <- reclassify(copNDVI, cbind(253:255,NA))
+plot(copNDVI)
+
+
 
 
 
