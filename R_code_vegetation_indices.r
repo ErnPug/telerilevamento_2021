@@ -53,7 +53,7 @@ plot(copNDVI)
 copNDVI <- reclassify(copNDVI, cbind(253:255,NA))
 plot(copNDVI)
 # funzione che ha bisogno del pacchetto rasterVis
- 
+levelplot(copNDVI)
 
 
 
