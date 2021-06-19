@@ -25,19 +25,19 @@ library(raster) # richiamo il pacchetto installato
 setwd("C:/lab/") # imposto come working directory la cartella "lab" in C
 
 p224r63_2011 <- brick("p224r63_2011_masked.grd") # birck importa tutte le bande dell'immagine
-p224r63_2011
+p224r63_2011 # scrivendo il nome del file, possiamo vedere le sue informazioni
 
-plot(p224r63_2011)
+plot(p224r63_2011) # Plotto l'immagine, ogni banda verrà plottatta in un'immagine a sé
 
 # Day 2
 # cambio i colori dei plot
 color <- colorRampPalette(c("black","grey","light grey"))(100) 
 
-plot(p224r63_2011,col=color)
+plot(p224r63_2011,col=color) # plotto l'immagine con la prima palette di colori
 
 color <- colorRampPalette(c("blue","light blue","green","yellow","red"))(100) # cambio i colori
 
-plot(p224r63_2011,col=color)
+plot(p224r63_2011,col=color) # plotto l'immagine con la seconda palette di colori
 
 # Day 3
 # Bande Landsat
@@ -52,7 +52,7 @@ plot(p224r63_2011,col=color)
 # Cancello i plot precedente
 dev.off()
 
-# plotto solo la banda 1. $lega la banda all'immagine
+# plotto solo la banda 1. "$" lega la banda all'immagine
 plot(p224r63_2011$B1_sre)
 # cambio la color palette della banda 1
 dev.off()
@@ -67,7 +67,7 @@ plot(p224r63_2011$B2_sre)
 par(mfrow=c(4,1))
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
-plot(p224r63_2011$B3_sre,)
+plot(p224r63_2011$B3_sre)
 plot(p224r63_2011$B4_sre)
 # lo rifaccio in un par 2X2 cambiando per ogni plot la palette di colori
 par(mfrow=c(2,2))
@@ -91,7 +91,7 @@ plot(p224r63_2011$B4_sre,col=clnir)
 # B6: infrarosso termico
 # B7: infrarosso medio
 # Ad ogni banda di landsat associamo una compenente dell'RGB. B=>1, G=>2, R=>3. 
-plotRGB(p224r63_2011,r=3,g=2,b=1,stretch="Lin") #uso "stretch" per plottare tutti i valori di riflettanza.
+plotRGB(p224r63_2011,r=3,g=2,b=1,stretch="Lin") #uso "stretch" per plottare tutti i valori di riflettanza incrementando il contrasto dell'immagine.
 # Modifico le bande usare per il plot RGB
 plotRGB(p224r63_2011,r=4,g=3,b=2,stretch="Lin")
 plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="Lin") # la banda 4 è l'infrarosso vicino, con riflettanza alta nelle piante.
