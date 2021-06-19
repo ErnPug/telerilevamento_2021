@@ -13,6 +13,7 @@
 # 8. Indici di vegetazione
 # 9. Copertura del suolo
 # 10. Variabilità
+# 11. Spectral signature
 
 #----------------------------------------------------------------------------------------------------
 
@@ -537,3 +538,6 @@ ggtitle("Standard deviation of PC1 by turbo colour scale") # scelgo il titolo
 grid.arrange(p1,p2,p3,nrow=1)
 
 #----------------------------------------------------------------------------------------------------
+
+# 11. Sèectral signature
+
