@@ -246,9 +246,9 @@ setwd("C:/lab/")
 library(knitr)
 library(tinytex)
 # tinytex::install_tinytex()
-    
+# serve per poter usare la funzione    
 tinytex::tlmgr_update()
-
+# Richiamo un codice per poter creare il template
 stitch("R_code_Greenland.txt", template=system.file("misc", "knitr-template.Rnw", package="knitr"))
 
 #----------------------------------------------------------------------------------------------------
@@ -261,7 +261,7 @@ setwd("C:/lab/")
 # carico l'immagine
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
 plot(p224r63_2011) # plotto l'immagine
-# metto su un grafico x-y due bande, la banda 1 e la banda 2
+# plotto su un grafico x-y due bande, la banda 1 e la banda 2
 plot(p224r63_2011$B1_sre,p224r63_2011$B2_sre,col="red",pch=19,cex=2)
 # pairs fa tutte le correlazioni che si possono fare
 pairs(p224r63_2011)
@@ -292,7 +292,7 @@ so
 # visualizzo l'immagine
 plotRGB(so,1,2,3,stretch="lin")
 
-# unsupervised classification
+# unsupervised classification, classificazione effettuata dal software
 soc <- unsuperClass(so, nClas=3)
 
 # la funzione ha creato in output diversi elementi, tra cui la mappa, che dovremmo plottare.
@@ -390,7 +390,7 @@ plot(difndvi, col=cld)
 
 # worldwide NDVI
 plot(copNDVI)
-# riclassifichiamo l'immagine precedente, eliminando il contributo dell'acqua. 
+# riclassifichiamo l'immagine precedente, eliminando il contributo dell'acqua. (cbind cambia dei valori) 
 copNDVI <- reclassify(copNDVI, cbind(253:255,NA))
 plot(copNDVI)
 # funzione che ha bisogno del pacchetto rasterVis
@@ -456,7 +456,7 @@ percent_1992 <- c(89.74,10.26)
 percent_2006 <- c(51.95,48.05)
 # uso la funzione data.frame per creare il dataset 
 percentages <- data.frame(cover,percent_1992,percent_2006)
-percentages
+percentages # così vedo il dataset
 # li plottiamo con ggplot
 ggplot(percentages,aes(x=cover,y=percent_1992,color=cover)) + geom_bar(stat="identity",fill="red")
 ggplot(percentages,aes(x=cover,y=percent_2006,color=cover)) + geom_bar(stat="identity",fill="orange")
