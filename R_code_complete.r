@@ -483,10 +483,10 @@ sent <- brick("sentinel.png")
 # NIR 1, RED=2, GREEN=3
 # r=1, g=2, b=3
 plotRGB(sent, stretch="lin")
- 
+# estraggo due bande, la NIR e la RED dal file "sent"
 nir <- sent$sentinel.1
 red <- sent$sentinel.2
- 
+# Calcolo l'NDVI e la plotto
 ndvi <- (nir-red) / (nir+red)
 plot(ndvi)
 cl <- colorRampPalette(c('black','white','red','blue','green'))(100)
@@ -502,7 +502,7 @@ plot(ndvimean3, col=clsd)
 # aumento il numero della griglia 13X13
 ndvisd13 <- focal(ndvi,w=matrix(1/169,nrow=13,ncol=13),fun=sd)
 plot(ndvisd13, col=clsd)
-# l'ideale sarebbe avere 5X5
+# l'ideale sarebbe avere 5X5, qundi faccio una griglia 5X5
 ndvisd5 <- focal(ndvi,w=matrix(1/25,nrow=5,ncol=5),fun=sd)
 plot(ndvisd5, col=clsd)
 # adesso calcolo la PCA e poi usero la moving qindow per il calcolo della deviazione standard
@@ -510,6 +510,7 @@ plot(ndvisd5, col=clsd)
 sentpca <- rasterPCA(sent)
 summary(sentpca$model)
 # la prima PC contiene il 67.36804 dell'informazione originale
+# Raccolgo il primo componente e faccio la deviazione standard con una moving window 5X5
 pc1 <- sentpca$map$PC1 
 pc1sd5 <- focal(pc1,w=matrix(1/25,nrow=5,ncol=5),fun=sd)
 plot(pc1sd5,col=clsd)
@@ -539,7 +540,7 @@ grid.arrange(p1,p2,p3,nrow=1)
 
 #----------------------------------------------------------------------------------------------------
 
-# 11. Sèectral signature
+# 11. Spectral signature
 
 library(raster)
 library(rgdal)
