@@ -329,9 +329,12 @@ library(RStoolbox)
 library(ggplot2)
 library(gridExtra)
 setwd("C:/lab/")
+# carico l'immagine
 p224r63 <- brick("p224r63_2011_masked.grd")
+# plotto le immagini con ggRGB
 ggRGB(p224r63,3,2,1, stretch="lin")
 ggRGB(p224r63,4,3,2, stretch="lin")
+# per poter inserire entrambe le immagini in una sola finestra, prima le lego ad un file, poi uso "grid.arrange"
 p1 <- ggRGB(p224r63,3,2,1, stretch="lin")
 p2 <- ggRGB(p224r63,4,3,2, stretch="lin")
 grid.arrange(p1, p2, nrow = 2) # this needs gridExtra
