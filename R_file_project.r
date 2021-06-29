@@ -91,5 +91,106 @@ freq(soc$map)
 # Zona con DIFFNDVI positivo 1  1681744
 # Zona con DIFFNDVI negativo 3   872752
 
-setwd("C:/lab/Nilo/Step1")
+# STEP 3 
+
+
+
+setwd("C:/lab/Nilo/Step3")
+
+step3 <- list.files(pattern="B")
+
+# applico ad ogni immagine della lista la funzione "raster"
+importstep3 <- lapply(step3,raster)
+
+# unisco in un unico file
+TGrstep3 <- stack(importstep3)
+
+
+# Rispetto ai vari layer nell'immagine, la banda 1 è nel terzo layer, la 2 nel quarto e così via.
+# Raggruppo le immagini. Uso plotRGB per plottarle.
+
+plotRGB(TGrstep3,r=7,g=6,b=5,stretch="lin")
+click(YGrstep3, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
+
+# NILO BIANCO
+
+#  x       y     cell LC08_L2SP_173049_20210601_20210608_02_T1_QA_PIXEL
+#1 442230 1713450 40575447                                             21952
+#  LC08_L2SP_173049_20210601_20210608_02_T1_QA_RADSAT
+#1                                                  0
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B1
+#1                                           9004
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B2
+#1                                           9895
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B3
+#1                                          11686
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B4
+#1                                          12106
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B5
+#1                                           9765
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B6
+#1                                           9031
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B7
+#1                                           8708
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_QA_AEROSOL
+#1                                                    224
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_ATRAN
+#1                                              7783
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_B10
+#1                                           45816
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_CDIST
+#1                                              3866
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_DRAD
+#1                                              946
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_EMIS
+#1                                             9904
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_EMSD
+#1                                              120
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_QA
+#1                                            159
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_TRAD
+#1                                             9936
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_URAD
+#1                                             1887
+
+# NILO AZZURRO
+
+#   x       y     cell LC08_L2SP_173049_20210601_20210608_02_T1_QA_PIXEL
+#1 457380 1720650 38754112                                             21952
+#  LC08_L2SP_173049_20210601_20210608_02_T1_QA_RADSAT
+#1                                                  0
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B1
+#1                                           8312
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B2
+#1                                           9065
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B3
+#1                                          10731
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B4
+#1                                          11049
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B5
+#1                                          10484
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B6
+#1                                           9893
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B7
+#1                                           9277
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_QA_AEROSOL
+#1                                                    224
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_ATRAN
+#1                                              7845
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_B10
+#1                                           48451
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_CDIST
+#1                                              2525
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_DRAD
+#1                                              923
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_EMIS
+#1                                             9624
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_EMSD
+#1                                              113
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_QA
+#1                                            167
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_TRAD
+#1                                            10795
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_URAD
+#1                                             1839
 
