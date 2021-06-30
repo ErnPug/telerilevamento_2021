@@ -7,6 +7,7 @@ library(ggplot2)
 library(gridExtra)
 library(rasterVis) # richiamo il pacchetto "rasterVis"
 library(knitr) # richiamo il pacchetto "knitr"
+library(zoom) # per richiamare il pacchetto zoom, utile a zommare nel momento in cui scegliamo il pixel per la firma 
 
 setwd("C:/lab/Nilo/Step1")
 
@@ -108,9 +109,9 @@ TGrstep3 <- stack(importstep3)
 
 # Rispetto ai vari layer nell'immagine, la banda 1 è nel terzo layer, la 2 nel quarto e così via.
 # Raggruppo le immagini. Uso plotRGB per plottarle.
-
-plotRGB(TGrstep3,r=7,g=6,b=5,stretch="lin")
-click(YGrstep3, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
+# Avendo caricato solo i file con all'inetrno B, ogni numero corrispnde alla banda con quel numero. (es 5 = B5)
+plotRGB(TGrstep3,r=5,g=4,b=3,stretch="lin")
+click(TGrstep3, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 
 # NILO BIANCO
 
@@ -193,4 +194,17 @@ click(YGrstep3, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 #1                                            10795
 #  LC08_L2SP_173049_20210601_20210608_02_T1_ST_URAD
 #1                                             1839
+
+# Creo argomenti con le bande 2, 3, 4 e 5 e la firma spettrale
+Bande <- c(2,3,4,5)
+NiloBianco <- c(9895,11686,12106,9765)
+NiloAzzurro <- c(9065,10731,11049,10484)
+# Creo il dataframe
+spectrals <- data.frame(Bande, NiloBianco, NiloAzzurro)
+
+
+ggplot(spectrals, aes(x=Bande)) + 
+ geom_line(aes(y=NiloBianco), color="green") + 
+ geom_line(aes(y=NiloAzzurro), color="blue") + 
+ labs(x="band", y="reflectance")
 
