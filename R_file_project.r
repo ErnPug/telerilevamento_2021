@@ -1,17 +1,16 @@
 # R_file_project.r
-# NON ANCORA COMPLETATO
+# COMPLETO
 
 library(raster)
 library(RStoolbox)
 library(ggplot2)
 library(gridExtra)
 library(rasterVis) # richiamo il pacchetto "rasterVis"
-library(knitr) # richiamo il pacchetto "knitr"
 library(zoom) # per richiamare il pacchetto zoom, utile a zommare nel momento in cui scegliamo il pixel per la firma 
 
 setwd("C:/lab/Nilo/Step1")
 
-# BANDE 
+# BANDE Fonte Wikipedia
 # BANDA 1 Coastal/Aerosol
 # BANDA 2 Blue
 # BANDA 3 Green
@@ -70,7 +69,7 @@ par(mfrow=c(2,1))
 plot(DVI2013, col=cl)
 plot(DVI2021, col=cl)
 
-# Faccio la differenza tra i risultati
+# Faccio la differenza tra i due anni
 DIFDVI <- DVI2013 - DVI2021
 cld <- colorRampPalette(c('blue','white','red'))(100)
 plot(DIFDVI, col=cld)
@@ -88,8 +87,9 @@ plot(NDVI2013, col=cl, main="NDVI 2013")
 plot(NDVI2021, col=cl, main="NDVI 2021")
 dev.off()
 
-# Faccio la differenza dei due NDVI
+# Faccio la differenza dei due NDVI nei due periodi
 DIFFNDVI <- NDVI2013 - NDVI2021
+
 jpeg("grafico_DIFFNDVI.jpg", 800, 800)
 plot(DIFFNDVI, col=cld)
 dev.off()
@@ -109,6 +109,9 @@ perc2 <- 872752 /s1 # 0.3416533
 Percent <- c(65.83,34.17)
 Change <- c("Positive","Negative")
 percentages <- data.frame(Change,Percent)
+
+# Produco un istogramma con le percentuali di differenza dell'NDVI nei pixel dove è avvenuto un cambiamento forte dell'NDVI. 
+# Una differenza positiva indica un miglior NDVI nel 2013, mentre negativa il contrario 
 jpeg("grafico_ISTO.jpg", 800, 800)
 ggplot(percentages,aes(x=Change,y=Percent)) + geom_bar(stat="identity",fill="dark green") + 
   geom_text(aes(label = Percent),position=position_dodge(width=0.7), vjust=-0.25, size = 6)
@@ -252,6 +255,7 @@ NiloAzzurro <- c(9065,10731,11049,10484)
 # Creo il dataframe
 spectrals <- data.frame(Bande, Nilo, NiloBianco, NiloAzzurro)
 
+# plotto le impronte spettrali dei tre fiumi
 jpeg("grafico_Riflettanza.jpg", 1000, 600)
 ggplot() + 
  geom_line(data=spectrals,aes(x=Bande,y=Nilo,color="Nilo"),size=1) +
@@ -366,6 +370,7 @@ click(TGrstep32013, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_URAD
 #1                                             3443
 
+# Faccio la stessa cosa per il 2021
 plotRGB(TGrstep32021,r=7,g=6,b=5,stretch="lin")
 click(TGrstep32021, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 
@@ -410,7 +415,7 @@ click(TGrstep32021, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 #  LC08_L2SP_170060_20210612_20210622_02_T1_ST_URAD
 #1                                             3326
 
-
+# Credo un data frame con i dati di 4 bande per poi tracciare le impronte spettrali dei due eleme nti nel tempo
 HomaBay2021 <- c(9507,10822,10657,8263)
 Centro2021 <- c(7489,7984,7487,7414)
 HomaBay2013 <- c(9406,10673,10668,8512)
@@ -418,8 +423,9 @@ Centro2013 <- c(7256,7639,7269,7306)
 
 Bande <- c(2,3,4,5)
 
-spectrals <- data.frame(Bande, HomaBay2013, Centr2013, HomaBay2021, Centr2021)
+spectrals <- data.frame(Bande, HomaBay2013, Centr2013, HomaBay2021, Centr2021)ù
 
+# plotto le impronte spetrrali su un grafico x-y
 ggplot() + 
  geom_line(data=spectrals,aes(x=Bande,y=HomaBay2013,color="Homa Bay"),size=1) +
  geom_line(data=spectrals,aes(x=Bande,y=Centro2013,color="Centro lago"),size=1) + 
