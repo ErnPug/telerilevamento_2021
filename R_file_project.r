@@ -86,11 +86,19 @@ DIFFNDVI <- NDVI2013 - NDVI2021
 plot(DIFFNDVI, col=cld)
 
 # facciamo una unsupervised classification, classificazione effettuata dal software, per capire quanti pixel hanno un NDVI positivo, quanti negativo.
-soc <- unsuperClass(DIFFNDVI, nClas=2)
+soc <- unsuperClass(DIFFNDVI, nClas=3)
 plot(soc$map)
 freq(soc$map)
 # Zona con DIFFNDVI positivo 1  1681744
 # Zona con DIFFNDVI negativo 3   872752
+
+s1 <- 1681744 + 872752 
+perc1 <- 1681744/s1 # 0.6583467
+perc2 <- 872752 /s1 # 0.3416533
+percent <- c(65.83,34.17)
+Change <- c("Positive","Negative")
+percentages <- data.frame(Change,percent)
+ggplot(percentages,aes(x=Change,y=percent)) + geom_bar(stat="identity",fill="dark green")
 
 # STEP 3 
 
@@ -195,15 +203,34 @@ click(TGrstep3, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 #  LC08_L2SP_173049_20210601_20210608_02_T1_ST_URAD
 #1                                             1839
 
+
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B2
+#1                                           9195
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B3
+#1                                          11003
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B4
+#1                                          11606
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B5
+#1                                          10124
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B6
+#1                                           9293
+#  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B7
+#1                                           8843
+#  LC08_L2SP_173049_20210601_20210608_02_T1_ST_B10
+#1                                           46353
+
+
 # Creo argomenti con le bande 2, 3, 4 e 5 e la firma spettrale
 Bande <- c(2,3,4,5)
+Nilo <- c(9195,11003,11606,10124)
 NiloBianco <- c(9895,11686,12106,9765)
 NiloAzzurro <- c(9065,10731,11049,10484)
 # Creo il dataframe
-spectrals <- data.frame(Bande, NiloBianco, NiloAzzurro)
+spectrals <- data.frame(Bande,Nilo, NiloBianco, NiloAzzurro)
 
 
 ggplot(spectrals, aes(x=Bande)) + 
+ geom_line(aes(y=Nilo), color="black") +
  geom_line(aes(y=NiloBianco), color="green") + 
  geom_line(aes(y=NiloAzzurro), color="blue") + 
  labs(x="band", y="reflectance")
