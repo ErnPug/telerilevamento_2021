@@ -117,6 +117,7 @@ dev.off()
 
 
 # STEP 2
+# Impronta spettrale del Nilo, Nilo Bianco e Nilo Azzurro
 
 setwd("C:/lab/Nilo/Step2")
 
@@ -249,14 +250,180 @@ Nilo <- c(9195,11003,11606,10124)
 NiloBianco <- c(9895,11686,12106,9765)
 NiloAzzurro <- c(9065,10731,11049,10484)
 # Creo il dataframe
-spectrals <- data.frame(Bande,Nilo, NiloBianco, NiloAzzurro)
+spectrals <- data.frame(Bande, Nilo, NiloBianco, NiloAzzurro)
 
-jpeg("grafico_Riflettanza.jpg", 1600, 800)
-ggplot(spectrals, aes(x=Bande)) + 
- geom_line(aes(y=Nilo,color="red"),size=1) +
- geom_line(aes(y=NiloBianco,color="black"),size=1) + 
- geom_line(aes(y=NiloAzzurro,color="blue"),size=1) + 
+jpeg("grafico_Riflettanza.jpg", 1000, 600)
+ggplot() + 
+ geom_line(data=spectrals,aes(x=Bande,y=Nilo,color="Nilo"),size=1) +
+ geom_line(data=spectrals,aes(x=Bande,y=NiloBianco,color="Nilo Bianco"),size=1) + 
+ geom_line(data=spectrals,aes(x=Bande,y=NiloAzzurro,color="Nilo Azzurro"),size=1) + 
  labs(title="Flusso riflesso dei tre fiumi",x="Bande", y="Flusso luminoso riflesso") +
- scale_color_discrete(name = "Legenda", labels = c("Nilo", "Nilo Bianco","Nilo Azzurro"),)
+ scale_color_manual(name = "Fiume", values = c("Nilo" = "black", "Nilo Bianco" = "red", "Nilo Azzurro" = "blue"))
 dev.off()
+
 # STEP 3 
+# Lago Vittoria, sorgenti del Nilo. Differenza tra firma spettrale della parte centrale del lago e l'Homa Bay. Differenza temporale, 2013 e 2021.
+
+setwd("C:/lab/Nilo/Step3")
+
+step32021 <- list.files(pattern="20210622")
+step32013 <- list.files(pattern="20200912")
+
+importstep32021 <- lapply(step32021,raster)
+importstep32013 <- lapply(step32013,raster)
+
+TGrstep32021 <- stack(importstep32021)
+TGrstep32013 <- stack(importstep32013)
+
+par(mfrow=c(2,1))
+plotRGB(TGrstep32013,r=7,g=6,b=5,stretch="lin")
+plotRGB(TGrstep32021,r=7,g=6,b=5,stretch="lin")
+dev.off()
+
+plotRGB(TGrstep32013,r=7,g=6,b=5,stretch="lin")
+click(TGrstep32013, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
+
+
+# Centro del lago
+# x      y     cell LC08_L2SP_170060_20130419_20200912_02_T1_QA_PIXEL
+#1 549720 -60120 42336189                                             21952
+#  LC08_L2SP_170060_20130419_20200912_02_T1_QA_RADSAT
+#1                                                  0
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B1
+#1                                           6983
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B2
+#1                                           7256
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B3
+#1                                           7639
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B4
+#1                                           7269
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B5
+#1                                           7306
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B6
+#1                                           7743
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B7
+#1                                           7768
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_QA_AEROSOL
+#1                                                    192
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_ATRAN
+#1                                              5192
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_B10
+#1                                           42625
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_CDIST
+#1                                              5113
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_DRAD
+#1                                             1603
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_EMIS
+#1                                             9880
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_EMSD
+#1                                                0
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_QA
+#1                                            241
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_TRAD
+#1                                             8114
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_URAD
+#1                                             3552
+
+
+# Homa Bay
+
+#       x      y     cell LC08_L2SP_170060_20130419_20200912_02_T1_QA_PIXEL
+#1 683520 -30300 34884655                                             21952
+#  LC08_L2SP_170060_20130419_20200912_02_T1_QA_RADSAT
+#1                                                  0
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B1
+#1                                           8987
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B2
+#1                                           9406
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B3
+#1                                          10673
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B4
+#1                                          10668
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B5
+#1                                           8512
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B6
+#1                                           7821
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B7
+#1                                           7731
+#  LC08_L2SP_170060_20130419_20200912_02_T1_SR_QA_AEROSOL
+#1                                                     96
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_ATRAN
+#1                                              5419
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_B10
+#1                                           43663
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_CDIST
+#1                                              2689
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_DRAD
+#1                                             1559
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_EMIS
+#1                                             9880
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_EMSD
+#1                                                0
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_QA
+#1                                            236
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_TRAD
+#1                                             8467
+#  LC08_L2SP_170060_20130419_20200912_02_T1_ST_URAD
+#1                                             3443
+
+plotRGB(TGrstep32021,r=7,g=6,b=5,stretch="lin")
+click(TGrstep32021, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
+
+#Centro lago
+
+#  x      y     cell LC08_L2SP_170060_20210612_20210622_02_T1_QA_PIXEL
+#1 549870 -52950 42700065                                             21952
+#  LC08_L2SP_170060_20210612_20210622_02_T1_QA_RADSAT
+#1                                                  0
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B1
+#1                                           7263
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B2
+#1                                           7493
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B3
+#1                                           7952
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B4
+#1                                           7412
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B5
+#1                                           7327
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B6
+#1                                           7683
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B7
+#1                                           7670
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_QA_AEROSOL
+#1                                                    228
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_ATRAN
+#1                                              5551
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_B10
+#1                                           43876
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_CDIST
+#1                                               347
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_DRAD
+#1                                             1501
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_EMIS
+#1                                             9880
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_EMSD
+#1                                                0
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_QA
+#1                                            276
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_TRAD
+#1                                             8529
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_URAD
+#1                                             3326
+
+
+HomaBay2021 <- c(9507,10822,10657,8263)
+Centro2021 <- c(7489,7984,7487,7414)
+HomaBay2013 <- c(9406,10673,10668,8512)
+Centro2013 <- c(7256,7639,7269,7306)
+
+Bande <- c(2,3,4,5)
+
+spectrals <- data.frame(Bande, HomaBay2013, Centr2013, HomaBay2021, Centr2021)
+
+ggplot() + 
+ geom_line(data=spectrals,aes(x=Bande,y=HomaBay2013,color="Homa Bay"),size=1) +
+ geom_line(data=spectrals,aes(x=Bande,y=Centro2013,color="Centro lago"),size=1) + 
+ geom_line(data=spectrals,linetype=2,aes(x=Bande,y=HomaBay2021,color="Homa Bay"),size=1) +
+ geom_line(data=spectrals,linetype=2,aes(x=Bande,y=Centro2021,color="Centro lago"),size=1) +
+ labs(title="Flusso riflesso Lago Vittoria",x="Bande", y="Flusso luminoso riflesso") +
+ scale_color_manual(name = "Fiume", values = c("Centro lago" = "black", "Homa Bay" = "blue"))
