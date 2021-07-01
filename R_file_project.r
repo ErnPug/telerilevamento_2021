@@ -37,14 +37,18 @@ TGrstep12013 <- stack(importstep12013)
 
 # Rispetto ai vari layer nell'immagine, la banda 1 è nel terzo layer, la 2 nel quarto e così via.
 # Raggruppo le immagini. Uso plotRGB per plottarle.
+ # immagine
 par(mfrow=c(2,1))
 plotRGB(TGrstep12013,r=7,g=6,b=5,stretch="lin")
 plotRGB(TGrstep12021,r=7,g=6,b=5,stretch="lin")
-
+dev.off()
+#jpeg("Desktop/Univesità Bologna/Telerilevamento/immagini/grafico_oasi.jpg", 1600, 800)
 # provo il plottaggio con ggplot
+jpeg("grafico_oasi.jpg", 600, 800)
 p2021 <- ggRGB(TGrstep12021,r=7,g=6,b=5,stretch="LIN")
 p2013 <- ggRGB(TGrstep12013,r=7,g=6,b=5,stretch="LIN")
 grid.arrange(p2013,p2021,nrow=2)
+dev.off()
 
 # Calcolo il DVI delle due immagini
 # Metto le bande del rosso e del NIR in due oggetti, dato che non riesco a prenderlo direttamente da TGRstep1
@@ -54,7 +58,6 @@ RED2013 <- raster("LC08_L2SP_176040_20130413_20200912_02_T1_SR_B4.TIF")
 
 DVI2013 <- NIR2013 - RED2013
 cl <- colorRampPalette(c('darkblue','yellow','red','black'))(100) # specifico la palette di colori
-
 
 # Anno 2021
 NIR2021 <- raster("LC08_L2SP_176040_20210606_20210615_02_T1_SR_B5.TIF")
@@ -75,19 +78,27 @@ plot(DIFDVI, col=cld)
 # Calcolo adesso NDVI
 # 2013
 NDVI2013 <- DVI2013 / (RED2013 + NIR2013)
-plot(NDVI2013, col=cl)
 
 #2021
 NDVI2021 <- DVI2021 / (RED2021 + NIR2021)
-plot(NDVI2021, col=cl)
+#salvo l'immagine
+jpeg("grafico_NDVI.jpg", 1600, 800)
+par(mfrow=c(1,2))
+plot(NDVI2013, col=cl, main="NDVI 2013")
+plot(NDVI2021, col=cl, main="NDVI 2021")
+dev.off()
 
 # Faccio la differenza dei due NDVI
 DIFFNDVI <- NDVI2013 - NDVI2021
+jpeg("grafico_DIFFNDVI.jpg", 800, 800)
 plot(DIFFNDVI, col=cld)
+dev.off()
 
 # facciamo una unsupervised classification, classificazione effettuata dal software, per capire quanti pixel hanno un NDVI positivo, quanti negativo.
 soc <- unsuperClass(DIFFNDVI, nClas=3)
-plot(soc$map)
+jpeg("grafico_US.jpg", 800, 800)
+plot(soc$map, main="Unsupervised Classification con 3 classi")
+dev.off()
 freq(soc$map)
 # Zona con DIFFNDVI positivo 1  1681744
 # Zona con DIFFNDVI negativo 3   872752
@@ -95,31 +106,34 @@ freq(soc$map)
 s1 <- 1681744 + 872752 
 perc1 <- 1681744/s1 # 0.6583467
 perc2 <- 872752 /s1 # 0.3416533
-percent <- c(65.83,34.17)
+Percent <- c(65.83,34.17)
 Change <- c("Positive","Negative")
-percentages <- data.frame(Change,percent)
-ggplot(percentages,aes(x=Change,y=percent)) + geom_bar(stat="identity",fill="dark green")
+percentages <- data.frame(Change,Percent)
+jpeg("grafico_ISTO.jpg", 800, 800)
+ggplot(percentages,aes(x=Change,y=Percent)) + geom_bar(stat="identity",fill="dark green") + 
+  geom_text(aes(label = Percent),position=position_dodge(width=0.7), vjust=-0.25, size = 6)
+dev.off()
 
-# STEP 3 
 
 
+# STEP 2
 
-setwd("C:/lab/Nilo/Step3")
+setwd("C:/lab/Nilo/Step2")
 
-step3 <- list.files(pattern="B")
+step2 <- list.files(pattern="B")
 
 # applico ad ogni immagine della lista la funzione "raster"
-importstep3 <- lapply(step3,raster)
+importstep2 <- lapply(step2,raster)
 
 # unisco in un unico file
-TGrstep3 <- stack(importstep3)
+TGrstep2 <- stack(importstep2)
 
 
 # Rispetto ai vari layer nell'immagine, la banda 1 è nel terzo layer, la 2 nel quarto e così via.
 # Raggruppo le immagini. Uso plotRGB per plottarle.
 # Avendo caricato solo i file con all'inetrno B, ogni numero corrispnde alla banda con quel numero. (es 5 = B5)
-plotRGB(TGrstep3,r=5,g=4,b=3,stretch="lin")
-click(TGrstep3, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
+plotRGB(TGrstep2,r=5,g=4,b=3,stretch="lin")
+click(TGrstep2, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 
 # NILO BIANCO
 
@@ -235,3 +249,4 @@ ggplot(spectrals, aes(x=Bande)) +
  geom_line(aes(y=NiloAzzurro), color="blue") + 
  labs(x="band", y="reflectance")
 
+# STEP 3 
