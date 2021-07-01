@@ -132,9 +132,17 @@ TGrstep2 <- stack(importstep2)
 # Rispetto ai vari layer nell'immagine, la banda 1 è nel terzo layer, la 2 nel quarto e così via.
 # Raggruppo le immagini. Uso plotRGB per plottarle.
 # Avendo caricato solo i file con all'inetrno B, ogni numero corrispnde alla banda con quel numero. (es 5 = B5)
+jpeg("grafico_BiancoAzzurro.jpg", 1600, 800)
 plotRGB(TGrstep2,r=5,g=4,b=3,stretch="lin")
+dev.off()
+
+# Faccio lo zoom sulle zone che voglio analizzare 
+# zm()
+
+# Clicco sul Nilo Bianco, sul Nilo Azzurro e sul Nilo
 click(TGrstep2, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 
+# RISULTATI
 # NILO BIANCO
 
 #  x       y     cell LC08_L2SP_173049_20210601_20210608_02_T1_QA_PIXEL
@@ -217,6 +225,7 @@ click(TGrstep2, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 #  LC08_L2SP_173049_20210601_20210608_02_T1_ST_URAD
 #1                                             1839
 
+# NILO
 
 #  LC08_L2SP_173049_20210601_20210608_02_T1_SR_B2
 #1                                           9195
@@ -242,11 +251,12 @@ NiloAzzurro <- c(9065,10731,11049,10484)
 # Creo il dataframe
 spectrals <- data.frame(Bande,Nilo, NiloBianco, NiloAzzurro)
 
-
+jpeg("grafico_Riflettanza.jpg", 1600, 800)
 ggplot(spectrals, aes(x=Bande)) + 
- geom_line(aes(y=Nilo), color="black") +
- geom_line(aes(y=NiloBianco), color="green") + 
- geom_line(aes(y=NiloAzzurro), color="blue") + 
- labs(x="band", y="reflectance")
-
+ geom_line(aes(y=Nilo,color="red"),size=1) +
+ geom_line(aes(y=NiloBianco,color="black"),size=1) + 
+ geom_line(aes(y=NiloAzzurro,color="blue"),size=1) + 
+ labs(title="Flusso riflesso dei tre fiumi",x="Bande", y="Flusso luminoso riflesso") +
+ scale_color_discrete(name = "Legenda", labels = c("Nilo", "Nilo Bianco","Nilo Azzurro"),)
+dev.off()
 # STEP 3 
