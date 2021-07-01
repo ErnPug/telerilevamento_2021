@@ -991,6 +991,7 @@ ggplot() +
  scale_color_manual(name = "Fiume", values = c("Nilo" = "black", "Nilo Bianco" = "red", "Nilo Azzurro" = "blue"))
 dev.off()
 
+
 # STEP 3 
 # Lago Vittoria, sorgenti del Nilo. Differenza tra firma spettrale della parte centrale del lago e l'Homa Bay. Differenza temporale, 2013 e 2021.
 
@@ -1054,47 +1055,47 @@ click(TGrstep32013, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_URAD
 #1                                             3552
 
-
 # Homa Bay
 
-#       x      y     cell LC08_L2SP_170060_20130419_20200912_02_T1_QA_PIXEL
-#1 683520 -30300 34884655                                             21952
+#   x      y     cell LC08_L2SP_170060_20130419_20200912_02_T1_QA_PIXEL
+#1 654420 -43080 38079111                                             21952
 #  LC08_L2SP_170060_20130419_20200912_02_T1_QA_RADSAT
 #1                                                  0
 #  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B1
-#1                                           8987
+#1                                           9454
 #  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B2
-#1                                           9406
+#1                                           9829
 #  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B3
-#1                                          10673
+#1                                          10913
 #  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B4
-#1                                          10668
+#1                                          10678
 #  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B5
-#1                                           8512
+#1                                           8380
 #  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B6
-#1                                           7821
+#1                                           7807
 #  LC08_L2SP_170060_20130419_20200912_02_T1_SR_B7
-#1                                           7731
+#1                                           7720
 #  LC08_L2SP_170060_20130419_20200912_02_T1_SR_QA_AEROSOL
 #1                                                     96
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_ATRAN
-#1                                              5419
+#1                                              5362
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_B10
-#1                                           43663
+#1                                           43708
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_CDIST
-#1                                              2689
+#1                                              1534
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_DRAD
-#1                                             1559
+#1                                             1573
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_EMIS
 #1                                             9880
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_EMSD
 #1                                                0
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_QA
-#1                                            236
+#1                                            268
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_TRAD
-#1                                             8467
+#1                                             8463
 #  LC08_L2SP_170060_20130419_20200912_02_T1_ST_URAD
-#1                                             3443
+#1                                             3480
+
 
 # Faccio la stessa cosa per il 2021
 plotRGB(TGrstep32021,r=7,g=6,b=5,stretch="lin")
@@ -1141,15 +1142,57 @@ click(TGrstep32021, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 #  LC08_L2SP_170060_20210612_20210622_02_T1_ST_URAD
 #1                                             3326
 
+# HOMA BAY
+
+# x      y     cell LC08_L2SP_170060_20210612_20210622_02_T1_QA_PIXEL
+#1 655170 -45600 40843780                                             21952
+#  LC08_L2SP_170060_20210612_20210622_02_T1_QA_RADSAT
+#1                                                  0
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B1
+#1                                           7274
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B2
+#1                                           7904
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B3
+#1                                           9733
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B4
+#1                                           8726
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B5
+#1                                           7595
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B6
+#1                                           7624
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_B7
+#1                                           7606
+#  LC08_L2SP_170060_20210612_20210622_02_T1_SR_QA_AEROSOL
+#1                                                    224
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_ATRAN
+#1                                              5665
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_B10
+#1                                           44623
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_CDIST
+#1                                              1328
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_DRAD
+#1                                             1494
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_EMIS
+#1                                             9880
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_EMSD
+#1                                                0
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_QA
+#1                                            258
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_TRAD
+#1                                             8801
+#  LC08_L2SP_170060_20210612_20210622_02_T1_ST_URAD
+#1                                             3287
+
+
 # Credo un data frame con i dati di 4 bande per poi tracciare le impronte spettrali dei due eleme nti nel tempo
-HomaBay2021 <- c(9507,10822,10657,8263)
+HomaBay2021 <- c(7904,9733,8726,7595)
 Centro2021 <- c(7489,7984,7487,7414)
-HomaBay2013 <- c(9406,10673,10668,8512)
+HomaBay2013 <- c(9829,10913,10678,8380)
 Centro2013 <- c(7256,7639,7269,7306)
 
 Bande <- c(2,3,4,5)
 
-spectrals <- data.frame(Bande, HomaBay2013, Centr2013, HomaBay2021, Centr2021)ù
+spectrals <- data.frame(Bande, HomaBay2013, Centro2013, HomaBay2021, Centro2021)
 
 # plotto le impronte spetrrali su un grafico x-y
 jpeg("grafico_Rifl_Lago_Vittoria.jpg", 1000, 600)
