@@ -426,6 +426,7 @@ Bande <- c(2,3,4,5)
 spectrals <- data.frame(Bande, HomaBay2013, Centr2013, HomaBay2021, Centr2021)ù
 
 # plotto le impronte spetrrali su un grafico x-y
+jpeg("grafico_Rifl_Lago_Vittoria.jpg", 1000, 600)
 ggplot() + 
  geom_line(data=spectrals,aes(x=Bande,y=HomaBay2013,color="Homa Bay"),size=1) +
  geom_line(data=spectrals,aes(x=Bande,y=Centro2013,color="Centro lago"),size=1) + 
@@ -433,3 +434,8 @@ ggplot() +
  geom_line(data=spectrals,linetype=2,aes(x=Bande,y=Centro2021,color="Centro lago"),size=1) +
  labs(title="Flusso riflesso Lago Vittoria",x="Bande", y="Flusso luminoso riflesso") +
  scale_color_manual(name = "Fiume", values = c("Centro lago" = "black", "Homa Bay" = "blue"))
+dev.off()
+
+
+
+
