@@ -269,21 +269,22 @@ dev.off()
 # Lago Vittoria, sorgenti del Nilo. Differenza tra firma spettrale della parte centrale del lago e l'Homa Bay. Differenza temporale, 2013 e 2021.
 
 setwd("C:/lab/Nilo/Step3")
-
+# Carico le immagini
 step32021 <- list.files(pattern="20210622")
 step32013 <- list.files(pattern="20200912")
-
+# Applico la funzione raster a tutte le immagini
 importstep32021 <- lapply(step32021,raster)
 importstep32013 <- lapply(step32013,raster)
-
+# unisocin un unico file
 TGrstep32021 <- stack(importstep32021)
 TGrstep32013 <- stack(importstep32013)
-
-par(mfrow=c(2,1))
+# Plotto e salvo le immagini in RGB
+jpeg("grafico_LagoVittoria.jpg", 1000, 600)
+par(mfrow=c(1,2))
 plotRGB(TGrstep32013,r=7,g=6,b=5,stretch="lin")
 plotRGB(TGrstep32021,r=7,g=6,b=5,stretch="lin")
 dev.off()
-
+# Analizzo la firma spettrale di due parti del lago in due periodi. Apro l'immagine e scelgo i pixel
 plotRGB(TGrstep32013,r=7,g=6,b=5,stretch="lin")
 click(TGrstep32013, id=T, xy=T, cell=T, type="p", pch=16, col="yellow")
 
