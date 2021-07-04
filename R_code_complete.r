@@ -729,8 +729,8 @@ plot(PC1sd, col=color)
 
 library(raster)
 library(ggplot2)
-library(RStoolbox)
-library(gridExtra)
+library(RStoolbox) # usare ggRGB 
+library(gridExtra) #
 library(rasterVis) # richiamo il pacchetto "rasterVis"
 library(zoom) # per richiamare il pacchetto zoom, utile a zommare nel momento in cui scegliamo il pixel per la firma 
 
